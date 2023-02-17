@@ -80,3 +80,47 @@ class BootStrap {
     def destroy = {
     }
 }
+
+
+//findBy, findAllBy, or countBy
+
+//countByCity('New York')
+//findAllByStartDateGreaterThan(new Date())
+//findByCityAndDescriptionLike("Minneapolis", "%Groovy%")
+
+
+//    • blank (true/false): Allows an empty string value.
+//    • nullable (true/false): Allows null values.
+//    • max: Specifies the maximum value.
+//    • min: Specifies the minimum value.
+//    • vsize: Takes a Groovy range to determine bounds.
+//    • maxSize: Specifies the maximum size of a String or Collection.
+//    • minSize: Specifies the minimum size of a String or Collection.
+//    • inList: Only allows values contained in the supplied list.
+//    • matches: Requires value to match a regular expression.
+//    • unique (true/false): Enforces uniqueness in the database.
+//    • url (true/false): Only accepts a valid URL.
+//    • email (true/false): Only accepts a valid email address.
+//    • creditCard (true/false): Only accepts a valid credit card number.
+//    • validator: Takes a closure for custom validation. The first parameter is the value,
+//             and the second (optional) parameter is the instance being validated.
+
+//http://grails.org/doc/2.3.1/ref/Constraints/validator.html.
+
+//http://localhost:8080/TekDays/dbconsole/login.do?jsessionid=32620a43f01206cd537f76b62f0aa3fc
+
+
+//    class Parent {
+//        ...
+//        static hasMany = [children : Child]
+//    }
+//    class Child {
+//        ...
+//        Parent parent
+//        static belongsTo = Parent
+//    }
+
+//• LessThan
+//• Between
+//• IsNotNull
+//• Like

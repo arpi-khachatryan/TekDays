@@ -2,14 +2,8 @@ import com.tekdays.*
 
 class BootStrap {
 
-
-//    if (GrailsUtil.environment == 'development'){
-////bootstrap code goes here...
-//    }
-
-
     def init = { servletContext ->
-        if(!TekEvent.first()) {
+        if (!TekEvent.first()) {
             new TekUser(fullName: 'John Doe',
                     userName: 'jdoe',
                     password: 't0ps3cr3t',
@@ -88,6 +82,10 @@ class BootStrap {
     }
 
 }
+//    if (GrailsUtil.environment == 'development'){
+////bootstrap code goes here...
+//    }
+
 //findBy, findAllBy, or countBy
 
 //countByCity('New York')

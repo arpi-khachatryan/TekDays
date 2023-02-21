@@ -15,4 +15,9 @@ class Sponsorship {
         description nullable: true, blank: true
         notes nullable: true, blank: true, maxSize: 5000
     }
+
+//    @Override
+//    String toString() {
+//        return "${sponsor}"
+//    }
 }

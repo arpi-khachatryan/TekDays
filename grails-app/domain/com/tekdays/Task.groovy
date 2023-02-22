@@ -18,4 +18,8 @@ class Task {
         dueDate nullable: true
         completed nullable: true
     }
+
+    String toString() {
+        "$title"
+    }
 }

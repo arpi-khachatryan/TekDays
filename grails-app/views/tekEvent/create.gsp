@@ -25,6 +25,7 @@
 				</g:eachError>
 			</ul>
 			</g:hasErrors>
+
 			<g:form url="[resource:tekEventInstance, action:'save']" >
 				<fieldset class="form">
 					<g:render template="form"/>
@@ -33,6 +34,7 @@
 					<g:submitButton name="create" class="save" value="${message(code: 'default.button.create.label', default: 'Create')}" />
 				</fieldset>
 			</g:form>
+
 		</div>
 	</body>
 </html>

@@ -15,7 +15,7 @@ class TekEvent {
                       sponsorships   : Sponsorship,
                       tasks          : Task,
                       messages       : TekMessage,
-                      recurDaysOfWeek: Integer
+//                      recurDaysOfWeek: Integer
     ]
 
     static constraints = {

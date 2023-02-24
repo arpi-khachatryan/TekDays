@@ -1,6 +1,5 @@
 package com.tekdays
 
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -9,9 +8,32 @@ class TekMessageController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+//    def index(Integer max) {
+//        params.max = Math.min(max ?: 10, 100)
+//        respond TekMessage.list(params),
+//                model: [tekMessageInstanceCount: TekMessage.count()]
+//    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond TekMessage.list(params), model: [tekMessageInstanceCount: TekMessage.count()]
+        def list
+        def count
+        def event = TekEvent.get(params.id)
+        if (event) {
+            list = TekMessage.findAllByEvent(event)
+            count = TekMessage.countByEvent(event)
+        } else {
+//            list = TekMessage.list([offset:1])
+            list = TekMessage.list(params)
+            count = TekMessage.count()
+        }
+//        [tekMessageInstanceList : list,
+//         tekMessageInstanceCount: count,
+//         event                  : event]
+
+        render view: 'ajaxIndex', model: [tekMessageInstanceList : list,
+                                          tekMessageInstanceCount: count,
+                                          event                  : event]
     }
 
     def show(TekMessage tekMessageInstance) {
@@ -99,5 +121,21 @@ class TekMessageController {
             }
             '*' { render status: NOT_FOUND }
         }
+    }
+
+    def showDetail() {
+        def tekMessageInstance = TekMessage.get(params.id)
+        if (tekMessageInstance) {
+            render(template: "details", model: [tekMessageInstance: tekMessageInstance])
+        } else {
+            render "No message found with id: ${params.id}"
+        }
+    }
+
+    def reply = {
+        def parent = TekMessage.get(params.id)
+        def tekMessageInstance = new TekMessage(parent: parent, event: parent.event,
+                subject: "RE: $parent.subject")
+        render view: 'create', model: ['tekMessageInstance': tekMessageInstance]
     }
 }

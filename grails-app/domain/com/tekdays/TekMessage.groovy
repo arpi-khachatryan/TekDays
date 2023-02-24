@@ -16,4 +16,6 @@ class TekMessage {
         parent nullable: true
         author nullable: false
     }
+
+    String toString() { author }
 }

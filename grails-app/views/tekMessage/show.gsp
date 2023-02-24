@@ -26,9 +26,7 @@
 				<g:if test="${tekMessageInstance?.subject}">
 				<li class="fieldcontain">
 					<span id="subject-label" class="property-label"><g:message code="tekMessage.subject.label" default="Subject" /></span>
-					
 						<span class="property-value" aria-labelledby="subject-label"><g:fieldValue bean="${tekMessageInstance}" field="subject"/></span>
-					
 				</li>
 				</g:if>
 			
@@ -62,9 +60,7 @@
 				<g:if test="${tekMessageInstance?.event}">
 				<li class="fieldcontain">
 					<span id="event-label" class="property-label"><g:message code="tekMessage.event.label" default="Event" /></span>
-					
 						<span class="property-value" aria-labelledby="event-label"><g:link controller="tekEvent" action="show" id="${tekMessageInstance?.event?.id}">${tekMessageInstance?.event?.encodeAsHTML()}</g:link></span>
-					
 				</li>
 				</g:if>
 			

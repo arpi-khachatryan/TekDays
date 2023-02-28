@@ -126,7 +126,7 @@ class TekMessageController {
     def showDetail() {
         def tekMessageInstance = TekMessage.get(params.id)
         if (tekMessageInstance) {
-            render(template: "details", model: [tekMessageInstance: tekMessageInstance, ])
+            render(template: "details", model: [tekMessageInstance: tekMessageInstance])
         } else {
             render "No message found with id: ${params.id}"
         }

@@ -41,26 +41,19 @@ class TekEventController {
 
         taskService.addDefaultTasks(tekEventInstance)
 
-//        request.withFormat {
-//            form multipartForm {
-//                flash.message = message(code: 'default.created.message', args: [message(code: 'tekEvent.label', default: 'TekEvent'), tekEventInstance.id])
-//                redirect tekEventInstance
-//            }
-//            '*' { respond tekEventInstance, [status: CREATED] }
-//        }
-
         request.withFormat {
-            form {
-                flash.message = message(code: 'default.created.message', //message (optional) - The object to resolve the message for. Objects must implement MessageSourceResolvable.
-                        // event.created.message="Event {0} created."
-                        [message(code: 'tekEventInstance.label',         //args (optional) - A list of argument values to apply to the message when code is used.
-                                default: 'TekEvent'), tekEventInstance.id])
-                //default (optional) - The default message to output if the error or code cannot be found in messages.properties.
+            form multipartForm {
+                flash.message = message(code: 'default.created.message', args: [message(code: 'tekEvent.label', default: 'TekEvent'), tekEventInstance.id])
                 redirect tekEventInstance
             }
             '*' { respond tekEventInstance, [status: CREATED] }
         }
     }
+
+    //message (optional) - The object to resolve the message for. Objects must implement MessageSourceResolvable.
+    // event.created.message="Event {0} created."
+    //args (optional) - A list of argument values to apply to the message when code is used.
+    //default (optional) - The default message to output if the error or code cannot be found in messages.properties.
 
     def edit(TekEvent tekEventInstance) {
         respond tekEventInstance

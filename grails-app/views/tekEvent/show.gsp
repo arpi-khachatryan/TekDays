@@ -15,8 +15,9 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label"
-                                                              args="[entityName]"/></g:link></li>
+        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]"/></g:link></li>
+
+        <li><g:link class="list" controller="dashboard" action="dashboard" id="${tekEventInstance.id}">Event Dashboard</g:link></li>
     </ul>
 </div>
 
@@ -145,7 +146,8 @@
 
         <g:if test="${tekEventInstance?.sponsorships}">
             <li class="fieldcontain">
-                <span id="sponsorships-label" class="property-label"><g:message code="tekEvent.sponsorships.label" default="Sponsorships"/></span>
+                <span id="sponsorships-label" class="property-label"><g:message code="tekEvent.sponsorships.label"
+                                                                                default="Sponsorships"/></span>
                 <g:each in="${tekEventInstance.sponsorships}" var="s">
                     <span class="property-value" aria-labelledby="sponsorships-label">
                         <g:link controller="sponsorship"
@@ -158,27 +160,27 @@
             </li>
         </g:if>
 
-%{--        <g:if test="${tekEventInstance?.tasks}">--}%
-%{--            <li class="fieldcontain">--}%
-%{--                <span id="tasks-label"--}%
-%{--                      class="property-label"><g:message code="tekEvent.tasks.label" default="Tasks"/></span>--}%
-%{--                <g:each in="${tekEventInstance.tasks}" var="t">--}%
-%{--                    <span class="property-value" aria-labelledby="tasks-label">--}%
-%{--                        <g:link controller="task"--}%
-%{--                                action="show"--}%
-%{--                                id="${t.id}"> ${t?.encodeAsHTML()}--}%
-%{--                        </g:link>--}%
-%{--                    </span>--}%
-%{--                </g:each>--}%
-%{--            </li>--}%
-%{--        </g:if>--}%
+    %{--        <g:if test="${tekEventInstance?.tasks}">--}%
+    %{--            <li class="fieldcontain">--}%
+    %{--                <span id="tasks-label"--}%
+    %{--                      class="property-label"><g:message code="tekEvent.tasks.label" default="Tasks"/></span>--}%
+    %{--                <g:each in="${tekEventInstance.tasks}" var="t">--}%
+    %{--                    <span class="property-value" aria-labelledby="tasks-label">--}%
+    %{--                        <g:link controller="task"--}%
+    %{--                                action="show"--}%
+    %{--                                id="${t.id}"> ${t?.encodeAsHTML()}--}%
+    %{--                        </g:link>--}%
+    %{--                    </span>--}%
+    %{--                </g:each>--}%
+    %{--            </li>--}%
+    %{--        </g:if>--}%
 
 
 
         <g:if test="${tekEventInstance?.tasks}">
             <li class="fieldcontain">
                 <span id="tasks-label" class="property-label"><g:message
-                        code="tekEvent.tasks.label" default="Tasks" /></span>
+                        code="tekEvent.tasks.label" default="Tasks"/></span>
                 <g:each in="${tekEventInstance.tasks}" var="t">
                     <span class="property-value" aria-labelledby="tasks-label">
                         <g:link controller="task" action="show"
@@ -191,7 +193,7 @@
             <li class="fieldcontain">
                 <span id="messages-label" class="property-label">
                     <g:message
-                        code="tekEvent.messages.label" default="Messages" />
+                            code="tekEvent.messages.label" default="Messages"/>
                 </span>
                 <span class="property-value" aria-labelledby="messages-label">
                     <g:link controller="tekMessage" action="index"
@@ -203,19 +205,19 @@
         </g:if>
 
 
-%{--        <g:if test="${tekEventInstance?.messages}">--}%
-%{--            <li class="fieldcontain">--}%
-%{--                <span id="messages-label" class="property-label"><g:message code="tekEvent.messages.label"--}%
-%{--                                                                            default="Messages"/></span>--}%
+    %{--        <g:if test="${tekEventInstance?.messages}">--}%
+    %{--            <li class="fieldcontain">--}%
+    %{--                <span id="messages-label" class="property-label"><g:message code="tekEvent.messages.label"--}%
+    %{--                                                                            default="Messages"/></span>--}%
 
-%{--                <g:each in="${tekEventInstance.messages}" var="m">--}%
-%{--                    <span class="property-value" aria-labelledby="messages-label"><g:link controller="tekMessage"--}%
-%{--                                                                                          action="show"--}%
-%{--                                                                                          id="${m.id}">${m?.encodeAsHTML()}</g:link></span>--}%
-%{--                </g:each>--}%
+    %{--                <g:each in="${tekEventInstance.messages}" var="m">--}%
+    %{--                    <span class="property-value" aria-labelledby="messages-label"><g:link controller="tekMessage"--}%
+    %{--                                                                                          action="show"--}%
+    %{--                                                                                          id="${m.id}">${m?.encodeAsHTML()}</g:link></span>--}%
+    %{--                </g:each>--}%
 
-%{--            </li>--}%
-%{--        </g:if>--}%
+    %{--            </li>--}%
+    %{--        </g:if>--}%
 
         <g:if test="${tekEventInstance?.respondents}">
             <li class="fieldcontain">

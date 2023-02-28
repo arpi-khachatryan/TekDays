@@ -22,6 +22,7 @@
 		<a href="${createLink(uri: '/')}">
 		<img src="${resource(dir: 'images', file: 'pic.jpg')}"alt="TekDays" style="width:-webkit-fill-available"/>
 		</a>
+		<g:loginToggle/>
 	</div>
 
 	<g:layoutBody/>

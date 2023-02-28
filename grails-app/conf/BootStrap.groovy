@@ -4,7 +4,7 @@ class BootStrap {
 
     def init = { servletContext ->
         if (!TekEvent.first()) {
-            new TekUser(fullName: 'John Doe',
+            def user = new TekUser(fullName: 'John Doe',
                     userName: 'jdoe',
                     password: 't0ps3cr3t',
                     email: 'jdoe@johnsgroovyshop.com',
@@ -21,7 +21,7 @@ class BootStrap {
 
             def event1 = new TekEvent(name: 'Gateway Code Camp',
                     city: 'Saint Louis, MO',
-                    organizer: TekUser.findByFullName('John Doe'),
+                    organizer: user,
                     venue: 'TBD',
                     startDate: new Date('11/21/2013'),
                     endDate: new Date('11/21/2013'),
@@ -34,6 +34,7 @@ class BootStrap {
                     startDate: new Date('11/2/2013'),
                     endDate: new Date('11/2/2013'),
                     description: 'Join the Perl programmers of the ...').save()
+
 
             def g1 = TekEvent.findByName('Gateway Code Camp')
             g1.addToVolunteers(new TekUser(fullName: 'Sarah Martin',

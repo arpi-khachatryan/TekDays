@@ -1,9 +1,5 @@
 <div id="show-tekMessage" class="content scaffold-show" role="main">
     <ol class="property-list tekMessage">
-
-
-        ///////
-
              <g:if test="${tekMessageInstance?.subject}">
             <li class="fieldcontain">
                 <span id="subject-label" class="property-label"><g:message

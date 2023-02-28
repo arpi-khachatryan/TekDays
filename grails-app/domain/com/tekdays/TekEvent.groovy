@@ -10,12 +10,11 @@ class TekEvent {
     Date endDate
     String description
 
-    static hasMany = [volunteers     : TekUser,
-                      respondents    : String,
-                      sponsorships   : Sponsorship,
-                      tasks          : Task,
-                      messages       : TekMessage,
-//                      recurDaysOfWeek: Integer
+    static hasMany = [volunteers  : TekUser,
+                      respondents : String,
+                      sponsorships: Sponsorship,
+                      tasks       : Task,
+                      messages    : TekMessage
     ]
 
     static constraints = {
@@ -37,24 +36,4 @@ class TekEvent {
     String toString() {
         "$name, $city"
     }
-//    // Recurring Options
-//    boolean isRecurring = false
-//    EventRecurType recurType
-//    Integer recurInterval = 1
-//    Date recurUntil
-//    Integer recurCount
-//
-//}
-//
-//public enum EventRecurType {
-//    DAILY('Daily'),
-//    WEEKLY('Weekly'),
-//    MONTHLY('Monthly'),
-//    YEARLY('Yearly')
-//
-//    String name
-//
-//    EventRecurType(String name) {
-//        this.name = name
-//    }
 }

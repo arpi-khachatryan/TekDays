@@ -4,6 +4,21 @@
 <head>
     <g:javascript library="jquery"/>
 
+    <g:javascript>
+        function render(id){
+            $.ajax({
+                type: "GET",
+                url: "http://localhost:8080/TekDays/tekMessage/showDetail",
+                data: {
+                    "id":id
+                },
+                success: function(result){
+                    $("#details").html(result)
+                }
+            });
+        }
+    </g:javascript>
+
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'tekMessage.label', default: 'TekMessage')}"/>
     <title><g:message code="default.list.label" args="[entityName]"/></title>
@@ -23,21 +38,25 @@
     </ul>
 </div>
 
-
 <div id="list-tekMessage" class="content scaffold-list" role="main">
-    <h1>${event?.name} - Forum Messages</h1>
+    <h1>${event?.name} Forum Messages</h1>
 
     <div id="messageList">
-        <g:messageThread messages="${tekMessageInstanceList}" />
-%{--        <g:each in="${tekMessageInstanceList}" var="tekMessageInstance">--}%
+%{--        <g:messageThread messages="${tekMessageInstanceList}" />--}%
+
+        <g:each in="${tekMessageInstanceList}" var="tekMessageInstance">
+
 %{--            <g:remoteLink action="showDetail" id="${tekMessageInstance?.id}" update="details">--}%
 %{--                <p>${tekMessageInstance.author.fullName} - ${tekMessageInstance.subject}</p>--}%
 %{--            </g:remoteLink>--}%
-%{--        </g:each>--}%
+
+            <p onclick="render(${tekMessageInstance?.id})"> ${tekMessageInstance}:  ${tekMessageInstance.subject}</p>
+        </g:each>
     </div>
+
+
     <h3>Message Details</h3>
     <div id="details">
-
     </div>
 </div>
 </body>

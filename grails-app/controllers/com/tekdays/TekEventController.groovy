@@ -37,6 +37,7 @@ class TekEventController {
         }
 
         tekEventInstance.save flush: true
+        //When set to true flushes the persistence context, persisting the object immediately and updating the version column for optimistic locking
 
         taskService.addDefaultTasks(tekEventInstance)
 
@@ -50,9 +51,11 @@ class TekEventController {
 
         request.withFormat {
             form {
-                flash.message = message(code: 'default.created.message',
-                        args: [message(code: 'tekEventInstance.label',
+                flash.message = message(code: 'default.created.message', //message (optional) - The object to resolve the message for. Objects must implement MessageSourceResolvable.
+                        // event.created.message="Event {0} created."
+                        [message(code: 'tekEventInstance.label',         //args (optional) - A list of argument values to apply to the message when code is used.
                                 default: 'TekEvent'), tekEventInstance.id])
+                //default (optional) - The default message to output if the error or code cannot be found in messages.properties.
                 redirect tekEventInstance
             }
             '*' { respond tekEventInstance, [status: CREATED] }

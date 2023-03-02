@@ -1,6 +1,14 @@
 package com.tekdays
 
-import javax.servlet.http.HttpSession
+import groovy.transform.CompileStatic
+import org.bouncycastle.asn1.isismtt.x509.Restriction
+import org.hibernate.Criteria
+import org.hibernate.Session
+import org.hibernate.SessionFactory
+import org.hibernate.Transaction
+import org.hibernate.criterion.Criterion
+import org.hibernate.criterion.LogicalExpression
+
 
 class TekDaysTagLib {
 
@@ -47,5 +55,50 @@ class TekDaysTagLib {
             out << "Login </a></span>"
         }
         out << "</div><br/>"
+    }
+
+    def organizerEvents = {
+        if (request.getSession(false) && session.user) {
+            def events = TekEvent.findAllByOrganizer(session.user)
+            if (events) {
+                out << "<div style='margin-left:25px; margin-top:25px; width:85%'>"
+                out << "<h3>Events you are organizing:</h3>"
+                out << "<ol>"
+                events.each {
+                    out << "<li><a href='"
+                    out << "${createLink(controller: 'tekEvent', action: 'show', id: it.id)}'>"
+                    out << "${it}</a></li>"
+                }
+                out << "</ol>"
+                out << "</div>"
+            }
+        }
+    }
+
+    def volunteerEvents = {
+        if (request.getSession(false) && session.user) {
+            def events = TekEvent.createCriteria().list {
+                volunteers {
+                    eq('id', session.user?.id)
+
+//                    and {
+//                        like("fullName", "Bill Smith%")
+//                        like("userName", "Mr_Bill")
+//                    }
+                }
+            }
+            if (events) {
+                out << "<div style='margin-left:25px; margin-top:25px; width:85%'>"
+                out << "<h3>Events you volunteered for:</h3>"
+                out << "<ol>"
+                events.each {
+                    out << "<li><a href='"
+                    out << "${createLink(controller: 'tekEvent', action: 'show', id: it.id)}'>"
+                    out << "${it}</a></li>"
+                }
+                out << "</ol>"
+                out << "</div>"
+            }
+        }
     }
 }

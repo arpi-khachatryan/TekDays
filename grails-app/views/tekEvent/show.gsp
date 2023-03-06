@@ -15,9 +15,11 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="default.list.label" args="[entityName]"/></g:link></li>
-        <li><g:link class="create" action="create"><g:message code="default.new.label" args="[entityName]"/></g:link></li>
+        <li><g:link class="create" action="create"><g:message code="default.new.label"
+                                                              args="[entityName]"/></g:link></li>
 
-        <li><g:link class="list" controller="dashboard" action="dashboard" id="${tekEventInstance.id}">Event Dashboard</g:link></li>
+        <li><g:link class="list" controller="dashboard" action="dashboard"
+                    id="${tekEventInstance.id}">Event Dashboard</g:link></li>
     </ul>
 </div>
 
@@ -204,7 +206,6 @@
             </li>
         </g:if>
 
-
     %{--        <g:if test="${tekEventInstance?.messages}">--}%
     %{--            <li class="fieldcontain">--}%
     %{--                <span id="messages-label" class="property-label"><g:message code="tekEvent.messages.label"--}%
@@ -215,7 +216,6 @@
     %{--                                                                                          action="show"--}%
     %{--                                                                                          id="${m.id}">${m?.encodeAsHTML()}</g:link></span>--}%
     %{--                </g:each>--}%
-
     %{--            </li>--}%
     %{--        </g:if>--}%
 
@@ -223,9 +223,8 @@
             <li class="fieldcontain">
                 <span id="respondents-label" class="property-label"><g:message code="tekEvent.respondents.label"
                                                                                default="Respondents"/></span>
-
-                <span class="property-value" aria-labelledby="respondents-label"><g:fieldValue
-                        bean="${tekEventInstance}" field="respondents"/></span>
+                <span class="property-value"
+                      aria-labelledby="respondents-label">${(tekEventInstance?.respondents as java.lang.String).replace("[", '').replace("]", '')}</span>
 
             </li>
         </g:if>

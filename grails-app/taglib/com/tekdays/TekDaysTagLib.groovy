@@ -1,15 +1,5 @@
 package com.tekdays
 
-import groovy.transform.CompileStatic
-import org.bouncycastle.asn1.isismtt.x509.Restriction
-import org.hibernate.Criteria
-import org.hibernate.Session
-import org.hibernate.SessionFactory
-import org.hibernate.Transaction
-import org.hibernate.criterion.Criterion
-import org.hibernate.criterion.LogicalExpression
-
-
 class TekDaysTagLib {
 
     //static defaultEncodeAs = [taglib:'html']
@@ -80,7 +70,6 @@ class TekDaysTagLib {
             def events = TekEvent.createCriteria().list {
                 volunteers {
                     eq('id', session.user?.id)
-
 //                    and {
 //                        like("fullName", "Bill Smith%")
 //                        like("userName", "Mr_Bill")
@@ -101,4 +90,18 @@ class TekDaysTagLib {
             }
         }
     }
+
+//    def volunteerButton = {attrs ->
+//        if (request.getSession(false) && session.user){
+//            def user = session.user.merge()
+//            def event = TekEvent.get(attrs.eventId)
+//            if (event && !event.volunteers.contains(user)){
+//                out << "<span id='volunteerSpan' class='menuButton'>"
+//                out << "<button id='volunteerButton' type='button'>"
+//                out << "Volunteer For This Event"
+//                out << "</button>"
+//                out << "</span>"
+//            }
+//        }
+//    }
 }

@@ -15,6 +15,7 @@
 <g:form action="validate">
     <input type="hidden" name="cName" value="${cName}">
     <input type="hidden" name="aName" value="${aName}">
+    <input type="hidden" name="id" value="${id}">
     <table>
         <tr class="prop">
             <td class="name">

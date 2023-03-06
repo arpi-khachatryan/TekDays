@@ -130,5 +130,14 @@
     <label for="respondents">
         <g:message code="tekEvent.respondents.label" default="Respondents"/>
     </label>
+
+    <g:if test="${params.action == 'create'}">
+        <g:textField name="respondents" required="" value="${tekEventInstance?.respondents}"/>
+    </g:if>
+
+    <g:else>
+        <g:textField name="respondents" required=""
+                     value="${(tekEventInstance?.respondents as String).replace("[", '').replace("]", '')}"/>
+    </g:else>
 </div>
 

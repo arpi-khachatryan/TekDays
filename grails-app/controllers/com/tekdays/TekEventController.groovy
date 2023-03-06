@@ -1,6 +1,5 @@
 package com.tekdays
 
-
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
 
@@ -8,6 +7,8 @@ import grails.transaction.Transactional
 class TekEventController {
 
     TaskService taskService
+    TekEventService tekEventService
+
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -39,6 +40,7 @@ class TekEventController {
         tekEventInstance.save flush: true
         //When set to true flushes the persistence context, persisting the object immediately and updating the version column for optimistic locking
 
+        tekEventService.addRespondents(tekEventInstance)
         taskService.addDefaultTasks(tekEventInstance)
 
         request.withFormat {
@@ -49,9 +51,8 @@ class TekEventController {
             '*' { respond tekEventInstance, [status: CREATED] }
         }
     }
-
     //message (optional) - The object to resolve the message for. Objects must implement MessageSourceResolvable.
-    // event.created.message="Event {0} created."
+    //event.created.message="Event {0} created."
     //args (optional) - A list of argument values to apply to the message when code is used.
     //default (optional) - The default message to output if the error or code cannot be found in messages.properties.
 
@@ -72,6 +73,7 @@ class TekEventController {
         }
 
         tekEventInstance.save flush: true
+        tekEventService.addRespondents(tekEventInstance)
 
         request.withFormat {
             form multipartForm {
@@ -111,3 +113,29 @@ class TekEventController {
         }
     }
 }
+
+//    def g3Event=TekEvent.createCriteria().list {
+//
+//        and{  //payman
+//
+//            gt('startdate',new Date())
+//
+//            or{
+//                ilike('description','%grovy%')
+//                ilike('description','%grails%')
+//                ilike('description','%griffon%')
+//            }
+//        }
+//
+//            def contegixEvents = TekEvent.createCriteria().list{
+//                sponsorships{
+//                    sponsor{
+//                        eq('name', 'Contegix')
+//                    }
+//                }
+//            }
+//        }
+
+
+
+

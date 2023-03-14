@@ -9,6 +9,7 @@ class BootStrap {
                     password: 't0ps3cr3t',
                     email: 'jdoe@johnsgroovyshop.com',
                     website: 'blog.johnsgroovyshop.com',
+                    nickname: 'GatewayCode',
                     bio: 'John has been programming for over 40 years. ...').save()
 
             new TekUser(fullName: 'John Deere',

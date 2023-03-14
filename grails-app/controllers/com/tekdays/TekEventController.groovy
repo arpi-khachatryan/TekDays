@@ -1,5 +1,7 @@
 package com.tekdays
 
+import grails.converters.JSON
+import grails.converters.XML
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 
@@ -12,6 +14,7 @@ class TekEventController {
     TaskService taskService
     EnversService enversService
     TekEventService tekEventService
+    DatatablesSourceService datatablesSourceService
 
     private static final Logger LOGGER = LoggerFactory.getLogger(TekEventController.class)
 
@@ -19,8 +22,13 @@ class TekEventController {
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond TekEvent.list(params),
-                model: [tekEventInstanceCount: TekEvent.count()]
+        respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
+    }
+
+    def dataTablesRenderer() {
+        def propertiesToRender = ["name", "city", "organizer", "venue", "startDate","endDate", "id"]
+        def entityName = 'TekEvent'
+        render datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
     }
 
     def show(TekEvent tekEventInstance) {
@@ -125,13 +133,39 @@ class TekEventController {
         if (!event.save(flush: true)) {
             render "Something went wrong!"
         }
-        render "Thank you for Volunteering"
+        render "Welcome to the team! Your help will make a huge difference"
     }
 
     def getAudits() {
         def res = enversService.getAllAudited(TekEvent.class)
         render(res)
     }
+
+    def json = {
+        def c = TekEvent.createCriteria()
+        def event = c.list {}
+        if (event) {
+            def jsonify = event as JSON
+            jsonify.prettyPrint = true
+            render jsonify
+        } else {
+            response.sendError 404
+        }
+    }
+
+    def xml = {
+        def c = TekEvent.createCriteria()
+        def event = c.list {}
+        if (event) {
+            withFormat {
+                xml { render event as XML }
+            }
+        } else {
+            response.sendError 404
+        }
+    }
+
+
 }
 
 //    def g3Event=TekEvent.createCriteria().list {

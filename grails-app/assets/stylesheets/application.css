@@ -10,6 +10,8 @@
 *= require main
 *= require mobile
 
+*= require jquery.dataTables
+
 *= require jquery-ui
 
 *= require_self

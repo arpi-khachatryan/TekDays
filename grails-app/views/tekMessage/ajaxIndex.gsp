@@ -4,7 +4,7 @@
 <head>
     <g:javascript library="jquery"/>
 
-    <g:javascript>
+    <script>
         function render(id){
             $.ajax({
                 type: "GET",
@@ -17,7 +17,7 @@
                 }
             });
         }
-    </g:javascript>
+    </script>
 
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'tekMessage.label', default: 'TekMessage')}"/>
@@ -57,6 +57,7 @@
 
     <h3>Message Details</h3>
     <div id="details">
+
     </div>
 </div>
 </body>

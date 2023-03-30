@@ -12,13 +12,21 @@ class TekUser {
     String website
     String bio
 
+//    static mapping = {
+//        sort: fullName
+//    }
+
     static constraints = {
-        fullName()
+        fullName size: 2..10
         userName()
-        email()
+        password blank: false
+        email email:true
         website()
         bio maxSize: 5000
     }
 
     String toString() { fullName }
 }
+
+//album.save(insert:true)
+//Album.listOrderByDateCreated()

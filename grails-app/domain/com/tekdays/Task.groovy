@@ -13,6 +13,10 @@ class Task {
     Boolean completed
 
     static belongsTo = TekEvent
+//
+//    static mapping = {
+//        batchSize 10
+//    }
 
     static constraints = {
         title blank: false

@@ -15,12 +15,37 @@ class TekEvent {
 
     String nickname
 
+
+    def beforeInsert() {
+    }
+
+    def beforeUpdate() {
+    }
+
     static hasMany = [volunteers  : TekUser,
                       respondents : String,
                       sponsorships: Sponsorship,
                       tasks       : Task,
                       messages    : TekMessage
     ]
+
+    static mapping = {//sorting
+        //organizer sort: "fullName"
+        // organizer cascade: 'save-update'       //then GORM uses a cascading policy of "save-update" by default.
+        //volunteers cascade: 'all-delete-orphan' // user will also be deleted if it is removed (orphaned) from an Event’s `users association.
+        // tasks fetch:'join'
+        //batchSize: 10
+
+        //The Second-Level Cache
+        //cache true
+        //tasks cache: 'read-only'
+
+
+        //Not to use optimistic locking,
+        //version false
+    }
+
+    //event.save(insert:true)
 
     static constraints = {
         name()

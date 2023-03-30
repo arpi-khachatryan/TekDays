@@ -10,9 +10,13 @@
 <a href="#page-body" class="skip"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>
 
 <div id="page-body" role="main">
-    <h1>Welcome to Admin page</h1>
+%{--    <h1>Welcome to Admin page</h1>--}%
+    <g:message code="my.message" args="[session?.user?.fullName]" default="admin"/>
+
     <g:if test="${user?.email == "mrbill@email.com"}">
         <div id="controller-list" role="navigation">
+            <br>
+
             <h2>Available Controllers</h2>
             <br>
             <ul>

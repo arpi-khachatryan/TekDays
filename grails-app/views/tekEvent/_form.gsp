@@ -58,7 +58,7 @@
         <g:message code="tekEvent.startDate.label" default="Start Date"/>
         <span class="required-indicator">*</span>
     </label>
-    <g:datePicker name="startDate" precision="day" value="${tekEventInstance?.startDate}" years="${2008..currentYear}"/>
+    <g:datePicker name="startDate" precision="day" value="${tekEventInstance?.startDate}" years="${2008..currentYear}"/>tekdays
 </div>
 
 <div class="fieldcontain ${hasErrors(bean: tekEventInstance, field: 'endDate', 'error')} required">

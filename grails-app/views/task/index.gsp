@@ -56,6 +56,11 @@
 			</table>
 			<div class="pagination">
 				<g:paginate total="${taskInstanceCount ?: 0}" />
+%{--				<g:paginate prev="Back" next="Forward" total="${taskInstanceCount ?: 0}" />--}%
+
+%{--				<g:paginate prev="${message(code: 'task.dueDate.label', default: 'Due Date')}"--}%
+%{--							next="${message(code: 'task.dueDate.label', default: 'Due Date')}"--}%
+%{--							total="${taskInstanceCount ?: 0}" />--}%
 			</div>
 		</div>
 	</body>

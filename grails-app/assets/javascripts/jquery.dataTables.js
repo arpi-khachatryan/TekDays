@@ -22994,7 +22994,7 @@
                 "ui-dialog-titlebar": "ui-corner-all"
             },
             closeOnEscape: true,
-            closeText: "Close",
+            // closeText: "Close",
             draggable: true,
             hide: null,
             height: "auto",

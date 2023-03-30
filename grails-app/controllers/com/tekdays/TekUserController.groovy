@@ -1,5 +1,6 @@
 package com.tekdays
 
+import grails.plugin.mail.MailService
 
 import static org.springframework.http.HttpStatus.*
 import grails.transaction.Transactional
@@ -7,11 +8,19 @@ import grails.transaction.Transactional
 @Transactional(readOnly = true)
 class TekUserController {
 
+    MailService mailService
+    def datatablesSourceService
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond TekUser.list(params), model: [tekUserInstanceCount: TekUser.count()]
+    }
+
+    def dataTablesRenderer() {
+        def propertiesToRender = ["fullName", "email", "website", "bio", "id"]
+        def entityName = 'TekUser'
+        render datatablesSourceService.dataTablesSource(propertiesToRender, entityName, params)
     }
 
     def show(TekUser tekUserInstance) {
@@ -28,7 +37,6 @@ class TekUserController {
             notFound()
             return
         }
-
         if (tekUserInstance.hasErrors()) {
             respond tekUserInstance.errors, view: 'create'
             return
@@ -74,7 +82,12 @@ class TekUserController {
 
     @Transactional
     def delete(TekUser tekUserInstance) {
-
+        def user = session.user
+        if (tekUserInstance.email == user.email) {
+            flash.message = "You can not delete yourself."
+            redirect(action: "show", id: user.id)
+            return
+        }
         if (tekUserInstance == null) {
             notFound()
             return
@@ -124,5 +137,27 @@ class TekUserController {
     def logout = {
         session.user = null
         redirect(uri: '/')
+    }
+
+    def register() {
+        respond new TekUser()
+    }
+
+    @Transactional
+    def registration() {
+        TekUser user = new TekUser(params)
+        try {
+            mailService.sendMail {
+                to user.email
+                subject "Registration Confirmation"
+                html view: "/email/confirmRegistration",
+                        model:
+                                [user: user]
+            }
+        } catch (Exception e) {
+            log.info("**** Error : Sending Job Fail Email:\n******* Cause : " + e.getMessage())
+        }
+        user.save(flush: true)
+        redirect(action: 'login')
     }
 }

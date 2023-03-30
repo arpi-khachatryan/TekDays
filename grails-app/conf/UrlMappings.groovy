@@ -1,7 +1,6 @@
 class UrlMappings {
 
     static mappings = {
-
         "/$controller/$action?/$id?(.$format)?" {
             constraints {
                 // apply constraints here
@@ -15,5 +14,8 @@ class UrlMappings {
             controller = "tekEvent"
             action = "show"
         }
+
+        "/TakDays/tekEvent/index$lang"(controller: 'tekEvent')
+        "/TakDays/tekEvent/create$lang"(controller: 'tekEvent')
     }
 }

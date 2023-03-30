@@ -2,15 +2,19 @@ package com.tekdays
 
 import grails.converters.JSON
 import grails.converters.XML
+import grails.transaction.Transactional
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.context.MessageSource
+
+import java.lang.annotation.Target
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekEventController {
 
+    MessageSource messageSource
     TaskService taskService
     EnversService enversService
     TekEventService tekEventService
@@ -20,9 +24,14 @@ class TekEventController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
+        //respond TekEvent.list(params, [fetch: [tasks: 'join']]), model: [tekEventInstanceCount: TekEvent.count()]
+        //Query Caching respond TekEvent.list(params, cache: true), model: [tekEventInstanceCount: TekEvent.count()]
+
+        //println messageSource.getMessage('abc.a.a', args1 as Object[], new Locale('es'))
     }
 
     def dataTablesRenderer() {
@@ -182,6 +191,58 @@ class TekEventController {
         } else {
             response.sendError 404
         }
+    }
+
+
+    def dynamicFindersInAction() {
+        //retrieve an event where the city contains 'MO'
+        TekEvent.findByCityIlike('%MO%')
+        // get a event created in last 10 days
+        def today = new Date()
+        def last10Days = TekEvent.findByStartDateBetween(today - 10, today)
+        // first event that is not 'LA'
+        def somethingElse = TekEvent.findByCityNotEqual('LA')
+    }
+
+    def dynamicFindersInAction2() {
+
+        def queryMap = [name: 'Gateway Code Camp', respondents: ['ben@grailsmail.com', 'zachary@linuxgurus.org']]
+        def query = {
+            // go through the query map
+            queryMap.each { key, value ->
+                // if we have a list assume a between query
+                if (value instanceof List) {
+                    // use the spread operator to invoke
+                    between(key, *value)
+                } else {
+                    like(key, value)
+                }
+            }
+        }
+        // create a criteria instance
+        def criteria = TekEvent.createCriteria()
+
+        // count the results
+        println(criteria.count(query))
+//
+//        // reuse again to get a unique result
+        println(criteria.get(query))
+
+        // reuse again to list all
+        criteria.list(query).each { println it }
+
+        // use scrollable results
+        def scrollable = criteria.scroll(query)
+        def next = scrollable.next()
+//        while (next) {
+//            println(scrollable.getString('city'))
+//            next = scrollable.next()
+//        }
+
+
+        TekEvent.findAllByName("sdss", [max: 10, offset: 20, sort: 'aaa', order: 'desc'])
+
+
     }
 }
 

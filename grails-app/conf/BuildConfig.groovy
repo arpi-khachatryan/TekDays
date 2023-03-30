@@ -41,9 +41,12 @@ grails.project.dependency.resolution = {
         mavenLocal()
         grailsCentral()
         mavenCentral()
+
         // uncomment these (or add new ones) to enable remote dependency resolution from public Maven repositories
-        //mavenRepo "http://repository.codehaus.org"
-        //mavenRepo "http://download.java.net/maven/2/"
+
+        // mavenRepo "http://repository.codehaus.org"
+        // mavenRepo "http://download.java.net/maven/2/"
+
         //mavenRepo "http://repository.jboss.com/maven2/"
     }
 
@@ -71,8 +74,10 @@ grails.project.dependency.resolution = {
 
         compile ":jquery-ui:1.8.24"
 
+
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.10" // or ":hibernate:3.6.10.18"
+
         runtime ":database-migration:1.4.0"
 
         runtime ":jquery:1.11.1"
@@ -88,5 +93,9 @@ grails.project.dependency.resolution = {
         grails.plugin.fields.wrapper = "field"
         grails.plugin.fields.displayWrapper = "display"
         grails.plugin.fields.widget = "input"
+
+        compile 'org.grails.plugins:mail:1.0.7'
+
+        apply plugin: "org.grails.grails-gsp"
     }
 }

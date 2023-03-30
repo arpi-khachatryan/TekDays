@@ -20,14 +20,14 @@
 
     <f:field property="notes">
         <g:textArea name="notes" cols="50" rows="5" maxlength="5000" value="${taskInstance?.notes}"/>
-    %{--        <g:passwordField name="password"/>--}%
+    %{--            <g:passwordField name="password"/>--}%
     </f:field>
 
     <f:field property="assignedTo"/>
 
     <f:field property="dueDate">
-    %{--        <g:datePicker name="dueDate" precision="day" value="${taskInstance?.dueDate}" default="none"--}%
-    %{--                      noSelection="['': '']" years="${2021..2025}"/>--}%
+    %{--            <g:datePicker name="dueDate" precision="day" value="${taskInstance?.dueDate}" default="none"--}%
+    %{--                          noSelection="['': '']" years="${2021..2025}"/>--}%
         <g:textField name="intakeDate" style="width: 7em"
                      value="${formatDate(format: 'MM/dd/yyyy', date: intakeCommand?.intakeDate)}" class="form-control"
                      title="mm/dd/yyyy" placeholder="mm/dd/yyyy"

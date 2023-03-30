@@ -36,6 +36,10 @@ class BootStrap {
                     endDate: new Date('11/2/2013'),
                     description: 'Join the Perl programmers of the ...').save()
 
+//            def get = tekuser.get(1)
+//            get.fullName="asjaj"
+//            get.save()
+//            def name = TekUser.listOrderByFullName()
 
             def g1 = TekEvent.findByName('Gateway Code Camp')
             g1.addToVolunteers(new TekUser(fullName: 'Sarah Martin',

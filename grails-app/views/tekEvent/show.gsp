@@ -4,13 +4,14 @@
 <head>
     <meta name="layout" content="main">
     <g:set var="entityName" value="${message(code: 'tekEvent.label', default: 'TekEvent')}"/>
-    <g:javascript library="jquery"/>
-%{--    <r:require module="jquery-ui"/>--}%
+%{--    <g:javascript library="jquery"/>--}%
+%{--        <r:require module="jquery-ui"/>--}%
     <title><g:message code="default.show.label" args="[entityName]"/></title>
 
 </head>
 
 <body>
+
 <a href="#show-tekEvent" class="skip" tabindex="-1"><g:message code="default.link.skip.label"
                                                                default="Skip to content&hellip;"/></a>
 
@@ -18,7 +19,7 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="default.list.label"
-                                                           args="[entityName]"/></g:link></li>
+                                                           args="[entityName, '🙂']"/></g:link></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="[entityName]"/></g:link></li>
 
@@ -26,7 +27,6 @@
                     id="${tekEventInstance.id}">Event Dashboard</g:link></li>
 
         <li><g:volunteerButton eventId="${tekEventInstance.id}"/></li>
-
     </ul>
 </div>
 
@@ -75,10 +75,8 @@
             <li class="fieldcontain">
                 <span id="description-label" class="property-label"><g:message code="tekEvent.description.label"
                                                                                default="Description"/></span>
-
                 <span class="property-value" aria-labelledby="description-label"><g:fieldValue
                         bean="${tekEventInstance}" field="description"/></span>
-
             </li>
         </g:if>
 
@@ -87,10 +85,8 @@
             <li class="fieldcontain">
                 <span id="venue-label" class="property-label"><g:message code="tekEvent.venue.label"
                                                                          default="Venue"/></span>
-
                 <span class="property-value" aria-labelledby="venue-label"><g:fieldValue bean="${tekEventInstance}"
                                                                                          field="venue"/></span>
-
             </li>
         </g:if>
 
@@ -117,10 +113,8 @@
             <li class="fieldcontain">
                 <span id="endDate-label" class="property-label"><g:message code="tekEvent.endDate.label"
                                                                            default="End Date"/></span>
-
                 <span class="property-value" aria-labelledby="endDate-label">
                     <g:formatDate format="MMMM dd, yyyy" date="${tekEventInstance?.endDate}"/></span>
-
             </li>
         </g:if>
 
@@ -132,7 +126,6 @@
                 <span class="property-value" aria-labelledby="organizer-label"><g:link controller="tekUser"
                                                                                        action="show"
                                                                                        id="${tekEventInstance?.organizer?.id}">${tekEventInstance?.organizer?.encodeAsHTML()}</g:link></span>
-
             </li>
         </g:if>
 
@@ -140,13 +133,11 @@
             <li class="fieldcontain">
                 <span id="volunteers-label" class="property-label"><g:message code="tekEvent.volunteers.label"
                                                                               default="Volunteers"/></span>
-
                 <g:each in="${tekEventInstance.volunteers}" var="v">
                     <span class="property-value" aria-labelledby="volunteers-label"><g:link controller="tekUser"
                                                                                             action="show"
                                                                                             id="${v.id}">${v?.encodeAsHTML()}</g:link></span>
                 </g:each>
-
             </li>
         </g:if>
 
@@ -227,7 +218,6 @@
                                                                                default="Respondents"/></span>
                 <span class="property-value"
                       aria-labelledby="respondents-label">${(tekEventInstance?.respondents as java.lang.String).replace("[", '').replace("]", '')}</span>
-
             </li>
         </g:if>
 
@@ -243,8 +233,25 @@
     </g:form>
 </div>
 
+<style>
+.ui-dialog .ui-dialog-buttonpane button{
+    display: compact;
+}
+.ui-dialog .ui-dialog-titlebar-close span{
+    display: block;
+}
+.ui-widget-header .ui-icon{
+    background-color: #ff0606;
+}
+.ui-widget .ui-widget{
+    font-size: 20px;
+    margin-right: 30px;
+}
+</style>
+
+
 <script type="text/javascript">
-    $(document).ready(function () {
+        $(document).ready(function () {
         $('#volunteerDialog').hide();
         $("#volunteerButton").click(function () {
             $("#volunteerDialog").dialog({
@@ -254,10 +261,11 @@
                 modal: false,
                 buttons: {
                     "Submit": function () {
+                        console.log("11")
                         $.ajax({
-                            type: "post",
+                            type: "POST",
                             dataType: "html",
-                          url: "${g.createLink(action:'volunteer')}",
+                            url: "${g.createLink(action:'volunteer')}",
                             // url: "http://localhost:8080/TekDays/tekEvent/volunteer",
                             async: false,
                             data: $("#volunteerForm").serialize(),
@@ -273,13 +281,12 @@
                 }
             });
         });
-    });
+       });
 </script>
 
 <div id="volunteerDialog" title="Volunteer for ${tekEventInstance.name}">
     <g:form name="volunteerForm" action="volunteer">
         <g:hiddenField name="id" value="${tekEventInstance.id}"/>
-        <p>Welcome to the team! Your help will make a huge difference.</p>
     </g:form>
 </div>
 

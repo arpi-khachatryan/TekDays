@@ -50,7 +50,7 @@ class TekDaysTagLib {
     def register = {
         out << "</span><span style='float:right;margin-right:15px'>"
         out << "<a href='${createLink(controller: 'tekUser', action: 'register')}'>"
-        out << "Sign Up</a></span>"
+        out << "${message(code: "signup", default: "Sign up")}</a></span>"
         out << "</div><br/>"
     }
 

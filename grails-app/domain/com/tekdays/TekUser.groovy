@@ -11,6 +11,7 @@ class TekUser {
     String email
     String website
     String bio
+    Boolean enable = false
 
 //    static mapping = {
 //        sort: fullName
@@ -18,9 +19,9 @@ class TekUser {
 
     static constraints = {
         fullName size: 2..10
-        userName()
+        userName nullable: true, blank: true
         password blank: false
-        email email:true
+        email email: true
         website()
         bio maxSize: 5000
     }

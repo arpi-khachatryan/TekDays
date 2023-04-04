@@ -100,5 +100,4 @@ class SponsorshipController {
             '*' { render status: NOT_FOUND }
         }
     }
-
 }

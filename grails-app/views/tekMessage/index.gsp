@@ -66,7 +66,8 @@
     </table>
 
     <div class="pagination">
-        <g:paginate total="${tekMessageInstanceCount ?: 0}"/>
+        %{--        <g:paginate total="${tekMessageInstanceCount ?: 0}"/>--}%
+        <g:paginate prev="Back" next="Forward" total="${tekMessageInstanceCount ?: 0}"/>
     </div>
 </div>
 </body>

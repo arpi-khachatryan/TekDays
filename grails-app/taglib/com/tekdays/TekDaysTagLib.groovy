@@ -38,11 +38,11 @@ class TekDaysTagLib {
             out << "Welcome ${session.user}."
             out << "</span><span style='float:right;margin-right:15px'>"
             out << "<a href='${createLink(controller: 'tekUser', action: 'logout')}'>"
-            out << "Logout </a></span>"
+            out << "Sign out </a></span>"
         } else {
             out << "<span style='float:right;margin-right:10px'>"
             out << "<a href='${createLink(controller: 'tekUser', action: 'login')}'>"
-            out << "${message(code: "login", default: "Login")} </a></span>"
+            out << "${message(code: "login", default: "Sign in")} </a></span>"
         }
         out << "</div>"
     }
@@ -112,7 +112,6 @@ class TekDaysTagLib {
         }
     }
 
-
     def admin = {
         out << "<div style='margin: 15px 0 40px;'>"
         if (request.getSession(false) && session.user) {
@@ -121,6 +120,6 @@ class TekDaysTagLib {
             out << "<a href='${createLink(controller: 'admin', action: 'admin')}'>"
             out << "Admin Page</a></span>"
         }
-        out << "</div><br/>"
+        out << "</div>"
     }
 }

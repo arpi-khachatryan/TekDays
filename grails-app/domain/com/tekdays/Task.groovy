@@ -2,6 +2,7 @@ package com.tekdays
 
 import org.hibernate.envers.Audited
 
+
 @Audited
 class Task {
 
@@ -11,9 +12,8 @@ class Task {
     Date dueDate
     TekEvent event
     Boolean completed
-
     static belongsTo = TekEvent
-//
+
 //    static mapping = {
 //        batchSize 10
 //    }

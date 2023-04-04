@@ -12,15 +12,13 @@ class TekEvent {
     Date startDate
     Date endDate
     String description
-
     String nickname
 
-
-    def beforeInsert() {
-    }
-
-    def beforeUpdate() {
-    }
+//    def beforeInsert() {
+//    }
+//
+//    def beforeUpdate() {
+//    }
 
     static hasMany = [volunteers  : TekUser,
                       respondents : String,
@@ -39,7 +37,6 @@ class TekEvent {
         //The Second-Level Cache
         //cache true
         //tasks cache: 'read-only'
-
 
         //Not to use optimistic locking,
         //version false

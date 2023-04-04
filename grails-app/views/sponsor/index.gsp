@@ -51,7 +51,8 @@
 				</tbody>
 			</table>
 			<div class="pagination">
-				<g:paginate total="${sponsorInstanceCount ?: 0}" />
+%{--				<g:paginate total="${sponsorInstanceCount ?: 0}" />--}%
+				<g:paginate prev="Back" next="Forward" total="${sponsorInstanceCount ?: 0}"/>
 			</div>
 		</div>
 	</body>

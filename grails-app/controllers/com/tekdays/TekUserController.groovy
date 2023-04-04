@@ -1,16 +1,27 @@
 package com.tekdays
 
 import grails.plugin.mail.MailService
+import grails.transaction.Transactional
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+import java.time.LocalDateTime
+import java.time.temporal.ChronoUnit
+import java.util.concurrent.ThreadLocalRandom
 
 import static org.springframework.http.HttpStatus.*
-import grails.transaction.Transactional
 
 @Transactional(readOnly = true)
 class TekUserController {
 
+    ChronoUnit chronoUnit
     MailService mailService
+    LocalDateTime localDateTime
     def datatablesSourceService
+    TekUserService tekUserService
+    ThreadLocalRandom threadLocalRandom
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    private static final Logger LOGGER = LoggerFactory.getLogger(TekUserController.class)
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -143,21 +154,83 @@ class TekUserController {
         respond new TekUser()
     }
 
+//    @Transactional
+//    def registration() {
+//        TekUser user = new TekUser(params)
+//        user.save flush: true
+//        try {
+//            mailService.sendMail {
+//                to user.email
+//                subject "Registration Confirmation"
+//                html view: "/email/confirmRegistration", model: [user: user]
+//            }
+//        } catch (Exception e) {
+//            log.info("**** Error : Sending Job Fail Email:\n******* Cause : " + e.getMessage())
+//        }
+//        redirect(action: 'login')
+//    }
+
     @Transactional
     def registration() {
         TekUser user = new TekUser(params)
-        try {
-            mailService.sendMail {
-                to user.email
-                subject "Registration Confirmation"
-                html view: "/email/confirmRegistration",
-                        model:
-                                [user: user]
-            }
-        } catch (Exception e) {
-            log.info("**** Error : Sending Job Fail Email:\n******* Cause : " + e.getMessage())
+        LOGGER.info("User {} has successfully registered", user.fullName)
+        LOGGER.info("New request to get registered. Email {}", user.email)
+        def email = TekUser.findByEmail(user.email)?.email
+        if (user?.email == email) {
+            LOGGER.info("There is already a user with email {}", user.email)
+            redirect(action: "login")
+            return
         }
         user.save(flush: true)
+        def token = createToken()
+        token.tekUser = user
+        token.save(flush: true)
+//        try {
+        mailService.sendMail {
+            to user.email
+            subject "Registration Confirmation"
+            html view: "/email/confirmRegistration", model: [user: user, token: token]
+        }
+//        } catch (Exception e) {
+//            log.info("**** Error : Sending Job Fail Email:\n******* Cause : " + e.getMessage())
+//        }
         redirect(action: 'login')
+    }
+
+    def createToken() {
+        log.info("Token successfully created")
+        def verificationToken = new VerificationToken(expiresAt: LocalDateTime.now().plus(12, ChronoUnit.HOURS), plainToken: UUID.randomUUID().toString())
+//        def verificationToken = new VerificationToken(expiresAt: LocalDateTime.now(), plainToken: UUID.randomUUID().toString())
+        return verificationToken
+    }
+
+    @Transactional
+    def verifyUser(String plainToken) {
+        def token = tekUserService.findByPlainToken(plainToken)
+        if (token == null) {
+            flash.message = "Token not found."
+            redirect(view: 'login')
+            return
+        } else if (token == "expired") {
+            flash.message = "Token expired."
+            redirect(view: 'index')
+            return
+        } else {
+            def user = token?.tekUser
+            token.delete(flush: true)
+            if (user == null) {
+                flash.message = "User does not exists with email and token"
+                redirect(view: 'index')
+                return
+            }
+            if (user.enable == true) {
+                flash.message = "Something went wrong, try again!"
+                redirect(view: 'index')
+                return
+            }
+            user.enable = true
+            user.save(flush: true)
+            redirect(action: 'login')
+        }
     }
 }

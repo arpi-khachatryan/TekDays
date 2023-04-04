@@ -2,8 +2,6 @@ package com.tekdays
 
 class DashboardController {
 
-    def index() { }
-
     def dashboard = {
         def event = TekEvent.get(params.id)
         if (event){

@@ -46,13 +46,6 @@
     <f:field property="completed"/>
 </f:with>
 
-
-
-
-
-
-
-
 %{--<div class="fieldcontain ${hasErrors(bean: taskInstance, field: 'title', 'error')} required">--}%
 %{--    <label for="title">--}%
 %{--        <g:message code="task.title.label" default="Title"/>--}%

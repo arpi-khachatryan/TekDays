@@ -10,7 +10,8 @@ class BootStrap {
                     email: 'jdoe@johnsgroovyshop.com',
                     website: 'blog.johnsgroovyshop.com',
                     nickname: 'GatewayCode',
-                    bio: 'John has been programming for over 40 years. ...').save()
+                    bio: 'John has been programming for over 40 years. ...')
+            user.save()
 
             new TekUser(fullName: 'John Deere',
                     userName: 'tractorman',
@@ -25,21 +26,19 @@ class BootStrap {
                     organizer: user,
                     venue: 'TBD',
                     startDate: new Date('11/21/2013'),
-                    endDate: new Date('11/21/2013'),
-                    description: '''This conference will bring coders ...''').save()
+                    endDate: new Date('11/21/2014'),
+                    description: '''This conference will bring coders ...''',
+                    nickname: "aaaaaaa")
+            event1.save()
 
             def event2 = new TekEvent(name: 'Perl Before Swine',
                     city: 'Austin, MN',
-                    organizer: TekUser.findByFullName('John Deere'),
+                    organizer: user,
                     venue: 'SPAM Museum',
                     startDate: new Date('11/2/2013'),
-                    endDate: new Date('11/2/2013'),
-                    description: 'Join the Perl programmers of the ...').save()
-
-//            def get = tekuser.get(1)
-//            get.fullName="asjaj"
-//            get.save()
-//            def name = TekUser.listOrderByFullName()
+                    endDate: new Date('11/2/2014'),
+                    description: 'Join the Perl programmers of the ...',
+                    nickname: "ppppppp").save()
 
             def g1 = TekEvent.findByName('Gateway Code Camp')
             g1.addToVolunteers(new TekUser(fullName: 'Sarah Martin',
@@ -57,12 +56,10 @@ class BootStrap {
                     bio: 'Software developer, claymation artist.'))
             g1.save()
 
-
             g1.addToRespondents('ben@grailsmail.com')
             g1.addToRespondents('zachary@linuxgurus.org')
             g1.addToRespondents('solomon@bootstrapwelding.com')
             g1.save()
-
 
             def s1 = new Sponsor(name: 'Contegix',
                     website: 'http://www.contegix.com',
@@ -86,7 +83,6 @@ class BootStrap {
 
     def destroy = {
     }
-
 }
 //    if (GrailsUtil.environment == 'development'){
 ////bootstrap code goes here...

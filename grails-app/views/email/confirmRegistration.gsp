@@ -8,19 +8,18 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title></title>
+    <title>Email For Registration</title>
 </head>
 
 <body>
-<%@ page contentType="text/plain"%>
+<%@ page contentType="text/plain" %>
 Dear ${user.fullName}
 Congratulations! You have registered with TekDays, giving you access to be part of great event.
 Your login id is: ${user.userName}
-You can use the following link to login:
-<g:createLink base="http://localhost:8080/TekDays/tekUser/login"/>
-%{--<g:createLink controller="login" absolute="true" />--}%
+Please confirm your registration
+%{--<g:createLink base="http://localhost:8080/TekDays/tekUser/verifyUser?plainToken=${token.plainToken}"/>--}%
+<a href="http://localhost:8080/TekDays/tekUser/verifyUser?plainToken=${token.plainToken}">LINK</a>
 Kind Regards,
 The TekDays Team
-
 </body>
 </html>

@@ -16,7 +16,7 @@
     <asset:javascript src="application.js"/>
     <g:layoutHead/>
     <g:javascript>
-        function Save(val) {
+        function save(val) {
             $.ajax({
                 url: "http://localhost:8080/TekDays/lang/getLang",
                 type: "POST",
@@ -35,20 +35,27 @@
 </head>
 
 <body>
+
 <div id="logo" role="banner">
     <img src="${resource(dir: 'images', file: 'pic.jpg')}" alt="TekDays" style="width:-webkit-fill-available"/>
-    <g:loginToggle/> <g:register/>
+
+    <div style="float:right">
+        <select class="form-control" onChange="save(this)">
+            <option value="">Language</option>
+            <option value="en">English🇺🇲</option>
+            <option value="hy">Հայերեն🇦🇲</option>
+            <option value="ru">Русский🇷🇺</option>
+        </select>
+    </div>
+    <br>
+    <br>
+    <br>
+
+    <g:register/>
+    <g:loginToggle/>
+    <g:admin/>
 
     <br>
-</div>
-
-<div style="float:right">
-    <select class="form-control" onChange="Save(this)">
-        <option value="">Language</option>
-        <option value="en">English🇺🇲</option>
-        <option value="hy">Հայերեն🇦🇲</option>
-        <option value="ru">Русский🇷🇺</option>
-    </select>
 </div>
 
 <g:layoutBody/>

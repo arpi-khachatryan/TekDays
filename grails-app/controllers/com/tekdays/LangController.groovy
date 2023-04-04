@@ -10,7 +10,6 @@ class LangController {
         def url = ""
         if (urlList) {
             url = urlList[0]
-            println 'fff'
         }
         switch (lang) {
             case "en":
@@ -32,7 +31,6 @@ class LangController {
     def checkLang() {
         def lang = session?.lang
         if (lang != null) {
-
             render(lang)
         } else render('en')
     }

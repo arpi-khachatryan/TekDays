@@ -7,30 +7,25 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.context.MessageSource
 
-import java.lang.annotation.Target
-
 import static org.springframework.http.HttpStatus.*
 
 @Transactional(readOnly = true)
 class TekEventController {
 
-    MessageSource messageSource
     TaskService taskService
     EnversService enversService
+    MessageSource messageSource
     TekEventService tekEventService
     DatatablesSourceService datatablesSourceService
-
     private static final Logger LOGGER = LoggerFactory.getLogger(TekEventController.class)
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond TekEvent.list(params), model: [tekEventInstanceCount: TekEvent.count()]
         //respond TekEvent.list(params, [fetch: [tasks: 'join']]), model: [tekEventInstanceCount: TekEvent.count()]
         //Query Caching respond TekEvent.list(params, cache: true), model: [tekEventInstanceCount: TekEvent.count()]
-
         //println messageSource.getMessage('abc.a.a', args1 as Object[], new Locale('es'))
     }
 
@@ -193,7 +188,6 @@ class TekEventController {
         }
     }
 
-
     def dynamicFindersInAction() {
         //retrieve an event where the city contains 'MO'
         TekEvent.findByCityIlike('%MO%')
@@ -205,7 +199,6 @@ class TekEventController {
     }
 
     def dynamicFindersInAction2() {
-
         def queryMap = [name: 'Gateway Code Camp', respondents: ['ben@grailsmail.com', 'zachary@linuxgurus.org']]
         def query = {
             // go through the query map
@@ -224,8 +217,8 @@ class TekEventController {
 
         // count the results
         println(criteria.count(query))
-//
-//        // reuse again to get a unique result
+
+        // reuse again to get a unique result
         println(criteria.get(query))
 
         // reuse again to list all
@@ -238,27 +231,19 @@ class TekEventController {
 //            println(scrollable.getString('city'))
 //            next = scrollable.next()
 //        }
-
-
-        TekEvent.findAllByName("sdss", [max: 10, offset: 20, sort: 'aaa', order: 'desc'])
-
-
+        TekEvent.findAllByName("sds", [max: 10, offset: 20, sort: 'aaa', order: 'desc'])
     }
 }
 
 //    def g3Event=TekEvent.createCriteria().list {
-//
 //        and{  //payman
-//
 //            gt('startdate',new Date())
-//
 //            or{
 //                ilike('description','%grovy%')
 //                ilike('description','%grails%')
 //                ilike('description','%griffon%')
 //            }
 //        }
-//
 //            def contegixEvents = TekEvent.createCriteria().list{
 //                sponsorships{
 //                    sponsor{

@@ -19,7 +19,7 @@
     <ul>
         <li><a class="home" href="${createLink(uri: '/')}"><g:message code="default.home.label"/></a></li>
         <li><g:link class="list" action="index"><g:message code="default.list.label"
-                                                           args="[entityName, '🙂']"/></g:link></li>
+                                                           args="[entityName]"/></g:link></li>
         <li><g:link class="create" action="create"><g:message code="default.new.label"
                                                               args="[entityName]"/></g:link></li>
 
@@ -233,21 +233,22 @@
     </g:form>
 </div>
 
-<style>
-.ui-dialog .ui-dialog-buttonpane button{
-    display: compact;
-}
-.ui-dialog .ui-dialog-titlebar-close span{
-    display: block;
-}
-.ui-widget-header .ui-icon{
-    background-color: #ff0606;
-}
-.ui-widget .ui-widget{
-    font-size: 20px;
-    margin-right: 30px;
-}
-</style>
+%{--<style>--}%
+%{--.ui-dialog .ui-dialog-buttonpane button{--}%
+%{--    display: compact;--}%
+%{--}--}%
+%{--.ui-dialog .ui-dialog-titlebar-close span{--}%
+%{--    display: block;--}%
+%{--}--}%
+%{--.ui-widget-header .ui-icon{--}%
+%{--    /*background-color: #ff0606;*/--}%
+%{--    /*background-color: #ff0606;*/--}%
+%{--}--}%
+%{--.ui-widget .ui-widget{--}%
+%{--    font-size: 20px;--}%
+%{--    margin-right: 30px;--}%
+%{--}--}%
+%{--</style>--}%
 
 
 <script type="text/javascript">

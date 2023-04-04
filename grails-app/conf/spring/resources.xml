@@ -15,11 +15,12 @@
     <task:annotation-driven executor="taskExecutor" scheduler="taskScheduler"/>
 
     <!--TODO conf scheduler-->
-    <task:scheduled-tasks scheduler="taskScheduler">
+<!--    <task:scheduled-tasks scheduler="taskScheduler">-->
 
-        <task:scheduled ref="testSchedulerService" method="print" cron="0 0/1 * * * *"/>
+    <!--        <task:scheduled ref="emailService" method="sendEmail" cron="0/30 * * * * ?"/>-->
+        <!--        <task:scheduled ref="emailService" method="sendEmail" cron="0 0 12 1 1/1 ? *"/>-->
 
-    </task:scheduled-tasks>
+<!--    </task:scheduled-tasks>-->
 
     <task:executor id="taskExecutor" pool-size="10-25" queue-capacity="60" rejection-policy="CALLER_RUNS"/>
 

@@ -35,7 +35,6 @@ grails.project.dependency.resolution = {
 
     repositories {
         inherits true // Whether to inherit repository definitions from plugins
-
         grailsPlugins()
         grailsHome()
         mavenLocal()
@@ -74,7 +73,6 @@ grails.project.dependency.resolution = {
 
         compile ":jquery-ui:1.8.24"
 
-
         // plugins needed at runtime but not for compilation
         runtime ":hibernate4:4.3.10" // or ":hibernate:3.6.10.18"
 
@@ -93,9 +91,6 @@ grails.project.dependency.resolution = {
         grails.plugin.fields.wrapper = "field"
         grails.plugin.fields.displayWrapper = "display"
         grails.plugin.fields.widget = "input"
-
         compile 'org.grails.plugins:mail:1.0.7'
-
-        apply plugin: "org.grails.grails-gsp"
     }
 }
